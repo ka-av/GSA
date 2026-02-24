@@ -1,7 +1,6 @@
-@"
-# GSA (Grounded Spatial Audit) — VLM Failure Modes
+# GSA (Grounded Spatial Audit)
 
-Runs a small synthetic VLM benchmark using Gemini 2.5 Flash with reward modes:
+Runs a small synthetic VLM benchmark using Gemini 2.5 Flash with 5 episodes:
 - true
 - proxy
 - misleading
