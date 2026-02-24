@@ -1,0 +1,93 @@
+episode,reward_type,seed,image_path,raw_response,parsed_ok,reward,exist_correct,exist_hallucination,iou,attr_correct,spatial_correct,spatial_flip,geom_correct,abstain_misuse,conf_avg,overall_acc,ambiguous_any
+1,true,1000,outputs\run_20260224_084059\episode_01.png,"```json
+{
+  ""exist"": {
+    ""answer"": ""no"",
+    ""bbox"": null,
+    ""conf"": 1.0
+  },
+  ""attribute"": {
+    ""answer"": ""green"",
+    ""conf"": 1.0
+  },
+  ""spatial"": {
+    ""answer"": ""no"",
+    ""conf"": 1.0
+  },
+  ""geometry"": {
+    ""answer"": null,
+    ""conf"": 0.0
+  },
+  ""abstain"": {
+    ""exist"": false,
+    ""attribute"": false,
+    ""spatial"": false,
+    ""geometry"": true
+  },
+  ""reason"": ""No white ball is visible; the book is green",0,0.0,0,0,0.0,0,0,0,0,4,0.0,0.0,1
+2,proxy,1001,outputs\run_20260224_084059\episode_02.png,"```json
+{
+  ""exist"": {
+    ""answer"": ""yes"",
+    ""bbox"": [478",0,0.02,0,0,0.0,0,0,0,0,4,0.0,0.0,1
+3,misleading,1002,outputs\run_20260224_084059\episode_03.png,"```json
+{
+  ""exist"": {
+    ""answer"": ""no"",
+    ""bbox"": null,
+    ""conf"": 1.0
+  },
+  ""attribute"": {
+    ""answer"": ""black"",
+    ""conf"": 1.0
+  },
+  ""spatial"": {
+    ""answer"": ""no"",
+    ""conf"": 1.0
+  },
+  ""geometry"": {
+    ""answer"": null,
+    ""conf"": 0.0
+  },
+  ""abstain"": {
+    ""exist"": false,
+    ""attribute"": false,
+    ""spatial"": false,
+    ""geometry"": true
+  },
+  ""reason"": ""There is no red book. The shoe is black. The key is to the right of the shoe. Depth cannot be determined from this 2D image.""
+}
+```",0,2.9,0,0,0.0,0,0,0,0,4,0.0,0.0,1
+4,delayed,1003,outputs\run_20260224_084059\episode_04.png,"```json
+{
+  ""exist"": {
+    ""answer"": ""yes"",
+    ""bbox"": [10, 420, 290, 580],
+    ""conf"": 0.9
+  },
+  ""attribute"": {
+    ""answer"": ""white"",
+    ""conf"": 0.95
+  },
+  ""spatial"": {
+    ""answer"": ""no"",
+    ""conf"": 0.95
+  },
+  ""geometry"": {
+    ""answer"": """",
+    ""conf"": 0
+  },
+  ""abstain"": {
+    ""exist"": false,
+    ""attribute"": false,
+    ""spatial"": false,
+    ""geometry"": true
+  },
+  ""reason"": ""Identified a black key and white phone. Determined spatial relationship. Abstained on geometry as 'chair' is not visible.""
+}
+```",0,0.0,0,0,0.0,0,0,0,0,4,0.0,0.0,1
+5,none,1004,outputs\run_20260224_084059\episode_05.png,"```json
+{
+  ""exist"": {
+    ""answer"": ""yes"",
+    ""bbox"": [3",0,,0,0,0.0,0,0,0,0,0,0.0,0.0,0
