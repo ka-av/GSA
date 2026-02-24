@@ -1,4 +1,4 @@
-﻿# ---- Secrets ----
+﻿# Secrets
 .env
 *.env
 .env.*
@@ -8,19 +8,15 @@
 *apikey*
 *api_key*
 
-# ---- Python ----
+# Python
 __pycache__/
 *.py[cod]
 *.pyd
 *.egg-info/
 .venv/
 venv/
-.envrc
 
-# ---- Node ----
-node_modules/
-
-# ---- Outputs / logs / caches ----
+# Outputs / logs
 outputs/
 runs/
 logs/
@@ -29,12 +25,10 @@ tmp/
 *.log
 *.sqlite
 *.db
-.DS_Store
-Thumbs.db
 
-# ---- Jupyter ----
+# Jupyter
 .ipynb_checkpoints/
 
-# ---- OS ----
+# OS
 .DS_Store
 Thumbs.db
