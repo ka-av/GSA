@@ -1,0 +1,6 @@
+episode,reward_type,reward,overall_acc,mean_conf,calibration_gap,hallucination_rate,spatial_flip_rate,abstain_misuse_rate,iou
+1,true,0.0,0.0,0.0,0.0,0,0,1.0,0.0
+2,proxy,0.02,0.0,0.0,0.0,0,0,1.0,0.0
+3,misleading,2.9,0.0,0.0,0.0,0,0,1.0,0.0
+4,delayed,0.0,0.0,0.0,0.0,0,0,1.0,0.0
+5,none,,0.0,0.0,0.0,0,0,0.0,0.0

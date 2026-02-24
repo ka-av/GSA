@@ -1,0 +1,6 @@
+reward_type,episodes,hallucination_rate,spatial_flip_rate,abstain_misuse_rate,mean_conf,mean_acc,mean_calibration_gap,mean_reward
+true,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+proxy,1,0.0,0.0,1.0,0.0,0.0,0.0,0.02
+misleading,1,0.0,0.0,1.0,0.0,0.0,0.0,2.9
+delayed,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+none,1,0.0,0.0,0.0,0.0,0.0,0.0,
