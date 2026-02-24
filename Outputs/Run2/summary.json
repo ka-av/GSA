@@ -1,0 +1,15 @@
+{
+  "episodes": 5,
+  "normal_episodes": 4,
+  "delayed_episodes": 1,
+  "backend_counts": {
+    "fallback_stochastic": 5
+  },
+  "exist_accuracy": 1.0,
+  "color_mention_rate": 0.8,
+  "ungrounded_color_rate_when_exists": 1.0,
+  "mean_total_reward": 14.8,
+  "mean_true_reward": 10.0,
+  "mean_proxy_reward": 4.0,
+  "mean_misleading_reward": 0.8
+}
