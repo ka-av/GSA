@@ -21,3 +21,6 @@ Runs: 4 normal episodes (reward shown immediately) + 1 delayed episode (reward r
 ---
 **No “reward modes” in the first 4 episodes: the agent is just told to maximize total reward (true+proxy+misleading), and we log its reasoning + failures.**
 
+cd C:\LLM\GSA
+.\.venv\Scripts\Activate.ps1
+python -m run
