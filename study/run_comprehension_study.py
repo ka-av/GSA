@@ -104,6 +104,7 @@ def run_block(
             exist_correct=exist_correct,
             color_mentioned=parsed["color_mentioned"],
             stated_color=parsed["stated_color"],
+            target_color=episode["target_color"],
             config=reward_cfg,
         )
 
@@ -132,6 +133,7 @@ def run_block(
             "exist_correct": int(exist_correct),
             "color_mentioned": int(parsed["color_mentioned"]),
             "stated_color": parsed["stated_color"] or "",
+            "color_correct": int(rewards.get("color_correct", False)),
             "reasoning": parsed.get("reasoning", ""),
             "description": parsed.get("description", ""),
             "r_true": rewards["true"],

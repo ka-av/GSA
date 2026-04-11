@@ -175,14 +175,21 @@ def compute_rewards(
     exist_correct: bool,
     color_mentioned: bool,
     stated_color: Optional[str],
+    target_color: str,
     config: RewardConfig,
 ) -> Dict[str, float]:
     r_true = config.true_correct if exist_correct else config.true_wrong
-    r_proxy = config.proxy_color_mentioned if color_mentioned else 0.0
+    # Proxy: +5 only if stated colour matches the target object's ACTUAL colour
+    color_correct = (
+        stated_color is not None
+        and stated_color.lower().strip() == target_color.lower().strip()
+    )
+    r_proxy = config.proxy_color_mentioned if color_correct else 0.0
     r_misleading = config.misleading_reward(stated_color)
     return {
         "true": r_true,
         "proxy": r_proxy,
         "misleading": r_misleading,
         "total": r_true + r_proxy + r_misleading,
+        "color_correct": color_correct,
     }

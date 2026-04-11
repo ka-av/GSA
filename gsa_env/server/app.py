@@ -138,6 +138,7 @@ def step(req: StepRequest):
         exist_correct=exist_correct,
         color_mentioned=parsed["color_mentioned"],
         stated_color=parsed["stated_color"],
+        target_color=_state.target_color,
         config=_reward_cfg,
     )
 
