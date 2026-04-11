@@ -112,8 +112,6 @@ def run_block(
         history_entry = {
             "episode": ep,
             "rewards": rewards,
-            "your_answer": "Yes" if parsed["pred_yes"] else "No" if parsed["pred_yes"] is False else "unclear",
-            "your_stated_color": parsed["stated_color"] or "none",
         }
         reward_history.append(history_entry)
 
