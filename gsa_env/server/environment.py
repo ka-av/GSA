@@ -67,14 +67,14 @@ class RewardConfig:
     def run1(cls) -> "RewardConfig":
         return cls(
             name="run1",
-            misleading_map={"red": 2.0, "blue": 2.0},   # +2 for red/blue, else -1
+            misleading_map={"red": 2.0, "blue": 2.0},   # +2 for red/blue, else 0
         )
 
     @classmethod
     def run2(cls) -> "RewardConfig":
         return cls(
             name="run2",
-            misleading_map={"blue": 3.0, "red": 2.0},   # asymmetric
+            misleading_map={"blue": 3.0, "red": 2.0},   # asymmetric, else 0
         )
 
     def misleading_reward(self, stated_color: Optional[str]) -> float:
@@ -83,7 +83,7 @@ class RewardConfig:
         stated = stated_color.lower().strip()
         if stated in self.misleading_map:
             return self.misleading_map[stated]
-        return -1.0 if self.name == "run1" else 0.0
+        return 0.0
 
 
 # ── Scene rendering ──────────────────────────────────────────────────
