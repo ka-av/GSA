@@ -178,6 +178,7 @@ def main():
             all_rows.extend(rows)
 
     # ── Save results ─────────────────────────────────────────────
+    os.makedirs(out_dir, exist_ok=True)
     csv_path = out_dir / "study_results.csv"
     if all_rows:
         keys = all_rows[0].keys()
