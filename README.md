@@ -46,7 +46,7 @@ Each episode presents:
 - **Inter-block:** NO — reward history resets at the start of each new block. Block 2 starts fresh with no memory of block 1.
 - **Inter-condition:** NO — also resets. The agent has no carry-over between conditions.
 
-This means the agent has at most 10 episodes of feedback history before a reset. Each block is an independent learning trial.
+This means the agent has at most 30 episodes of feedback history before a reset. Each block is an independent learning trial.
 
 ---
 
@@ -68,7 +68,7 @@ gsa_openenv/
 │   └── client/
 │       └── client.py                 # GSAEnvClient (sync HTTP)
 ├── study/
-│   ├── run_comprehension_study.py    # Main experiment runner (4 conditions × 3 blocks × 10 episodes)
+│   ├── run_comprehension_study.py    # Main experiment runner (2 conditions × 2 blocks × 30 episodes)
 │   ├── llm_agent.py                  # OpenRouter agent (Gemma 4 31B)
 │   └── analysis.py                   # Post-hoc statistics & adaptation curves
 └── outputs/                          # Auto-generated per run

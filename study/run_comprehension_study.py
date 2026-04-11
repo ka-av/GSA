@@ -48,8 +48,8 @@ from study.llm_agent import agent_respond, parse_response
 # ── Configuration ─────────────────────────────────────────────────────
 API_KEY = os.getenv("OPENROUTER_API_KEY", "")
 
-N_EPISODES_PER_BLOCK = 10   # episodes per condition block
-N_BLOCKS = 6                # repetitions per condition (2 × 6 × 10 = 120 total)
+N_EPISODES_PER_BLOCK = 30   # episodes per condition block
+N_BLOCKS = 2                # repetitions per condition (2 × 2 × 30 = 120 total)
 TEMPERATURE = 0.7
 
 CONDITIONS = [
