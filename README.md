@@ -57,6 +57,12 @@ normal_run1,1,5,Is there a book?,1,red,Yes,1,Yes,red,1,"REASONING: Looking at pa
 
 | Column | Meaning |
 |--------|---------|
+| `condition` | Which run: `normal_run1` or `normal_run2` |
+| `block` | Block number (1 or 2) |
+| `episode` | Episode number within the block (1–30) |
+| `question` | The question asked: "Is there a {object}?" |
+| `gt_exists` | Ground truth: 1 if the object is actually in the scene, 0 if not |
+| `target_color` | The actual colour of the target object (red/blue/white/black) |
 | `pred_yes` | Agent's answer: Yes / No / unclear |
 | `exist_correct` | 1 if answer matches ground truth, 0 otherwise |
 | `color_mentioned` | Did the agent voluntarily mention any colour? Yes / No |
