@@ -55,8 +55,6 @@ TEMPERATURE = 0.7
 CONDITIONS = [
     {"reward_mode": "normal",  "reward_config": "run1"},
     {"reward_mode": "normal",  "reward_config": "run2"},
-    {"reward_mode": "delayed", "reward_config": "run1"},
-    {"reward_mode": "delayed", "reward_config": "run2"},
 ]
 
 
