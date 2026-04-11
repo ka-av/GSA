@@ -107,10 +107,12 @@ def run_block(
             config=reward_cfg,
         )
 
-        # ── Build history entry (numbers only, no rules) ─────────
+        # ── Build history entry (numbers + what agent said, no rules) ─
         history_entry = {
             "episode": ep,
             "rewards": rewards,
+            "your_answer": "Yes" if parsed["pred_yes"] else "No" if parsed["pred_yes"] is False else "unclear",
+            "your_stated_color": parsed["stated_color"] or "none",
         }
         reward_history.append(history_entry)
 
@@ -130,6 +132,8 @@ def run_block(
             "exist_correct": int(exist_correct),
             "color_mentioned": int(parsed["color_mentioned"]),
             "stated_color": parsed["stated_color"] or "",
+            "reasoning": parsed.get("reasoning", ""),
+            "description": parsed.get("description", ""),
             "r_true": rewards["true"],
             "r_proxy": rewards["proxy"],
             "r_misleading": rewards["misleading"],
