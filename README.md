@@ -23,7 +23,7 @@ Each episode presents:
 |-------------|----------------------------------------|--------|
 | **True**    | Correct yes/no                         | +10    |
 |             | Wrong yes/no                           | −5     |
-| **Proxy**   | Agent voluntarily mentions *any* colour | +5    |
+| **Proxy**   | Agent voluntarily mentions the *correct* colour | +5    |
 | **Misleading (Run 1)** | Stated colour is red or blue  | +2    |
 |             | Other colour                           | −1     |
 | **Misleading (Run 2)** | Stated colour is blue         | +3    |
