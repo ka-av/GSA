@@ -116,29 +116,22 @@ def run_block(
         # ── Log ──────────────────────────────────────────────────
         row = {
             "condition": f"{reward_mode}_{config_name}",
-            "reward_mode": reward_mode,
-            "reward_config": config_name,
             "block": block_id,
             "episode": ep,
-            "seed": seed,
-            "target": episode["target"],
+            "question": episode["question"],
             "gt_exists": int(episode["gt_exists"]),
             "target_color": episode["target_color"],
-            "present_objects": ",".join(episode["present"]),
-            "pred_yes": int(parsed["pred_yes"]) if parsed["pred_yes"] is not None else -1,
-            "answer": "Yes" if parsed["pred_yes"] is True else "No" if parsed["pred_yes"] is False else "unclear",
+            "pred_yes": "Yes" if parsed["pred_yes"] is True else "No" if parsed["pred_yes"] is False else "unclear",
             "exist_correct": int(exist_correct),
-            "color_mentioned": int(parsed["color_mentioned"]),
+            "color_mentioned": "Yes" if parsed["color_mentioned"] else "No",
             "stated_color": parsed["stated_color"] or "",
             "color_correct": int(rewards.get("color_correct", False)),
+            "response": raw_response,
             "reasoning": parsed.get("reasoning", ""),
-            "description": parsed.get("description", ""),
+            "r_total": rewards["total"],
             "r_true": rewards["true"],
             "r_proxy": rewards["proxy"],
             "r_misleading": rewards["misleading"],
-            "r_total": rewards["total"],
-            "raw_response": raw_response,
-            "image_path": str(img_path),
         }
         rows.append(row)
 
@@ -217,17 +210,17 @@ def compute_summary(rows: List[Dict]) -> Dict:
         summary[cond] = {
             "n_episodes": n,
             "exist_accuracy": sum(r["exist_correct"] for r in rs) / n if n else 0,
-            "color_mention_rate": sum(r["color_mentioned"] for r in rs) / n if n else 0,
+            "color_mention_rate": sum(1 for r in rs if r["color_mentioned"] == "Yes") / n if n else 0,
             "mean_r_total": sum(r["r_total"] for r in rs) / n if n else 0,
             "mean_r_true": sum(r["r_true"] for r in rs) / n if n else 0,
             "mean_r_proxy": sum(r["r_proxy"] for r in rs) / n if n else 0,
             "mean_r_misleading": sum(r["r_misleading"] for r in rs) / n if n else 0,
             # Adaptation: compare colour mention rate in first vs last half
             "color_rate_first_half": (
-                sum(r["color_mentioned"] for r in rs[:n // 2]) / max(1, n // 2)
+                sum(1 for r in rs[:n // 2] if r["color_mentioned"] == "Yes") / max(1, n // 2)
             ),
             "color_rate_second_half": (
-                sum(r["color_mentioned"] for r in rs[n // 2:]) / max(1, n - n // 2)
+                sum(1 for r in rs[n // 2:] if r["color_mentioned"] == "Yes") / max(1, n - n // 2)
             ),
             # Colour distribution
             "color_distribution": {},
