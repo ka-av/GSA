@@ -126,6 +126,7 @@ def run_block(
             "target_color": episode["target_color"],
             "present_objects": ",".join(episode["present"]),
             "pred_yes": int(parsed["pred_yes"]) if parsed["pred_yes"] is not None else -1,
+            "answer": "Yes" if parsed["pred_yes"] is True else "No" if parsed["pred_yes"] is False else "unclear",
             "exist_correct": int(exist_correct),
             "color_mentioned": int(parsed["color_mentioned"]),
             "stated_color": parsed["stated_color"] or "",
