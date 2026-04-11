@@ -40,9 +40,15 @@ Each episode presents:
 3. **Normal vs Delayed**: Does immediate (but unexplained) feedback accelerate reward discovery compared to end-only feedback?
 4. **Run1 vs Run2**: Does asymmetric misleading reward produce different colour preferences?
 
----
+### History Scope
 
-## Model
+- **Inter-episode (within a block):** YES — the agent sees numeric scores from all prior episodes in that block. For example, episode 5 sees scores from episodes 1–4.
+- **Inter-block:** NO — reward history resets at the start of each new block. Block 2 starts fresh with no memory of block 1.
+- **Inter-condition:** NO — also resets. The agent has no carry-over between conditions.
+
+This means the agent has at most 10 episodes of feedback history before a reset. Each block is an independent learning trial.
+
+---
 
 **Gemma 4 31B** (`google/gemma-4-31b-it`) via OpenRouter — selected as the best multimodal model from the candidate set (Qwen 3.5 8B, Gemma 4, Llama 70B, DeepSeek V2, DeepSeek R1, GPT 5.3 mini, Claude Haiku).
 
