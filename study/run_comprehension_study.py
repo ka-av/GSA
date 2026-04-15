@@ -140,7 +140,7 @@ def run_block(
             "color_mentioned": "Yes" if parsed["color_mentioned"] else "No",
             "stated_color": parsed["stated_color"] or "",
             "color_correct": int(rewards.get("color_correct", False)),
-            "response": raw_response,
+            "answer": parsed.get("answer_text", ""),
             "reasoning": parsed.get("reasoning", ""),
             "r_total": rewards["total"],
             "r_true": rewards["true"],
