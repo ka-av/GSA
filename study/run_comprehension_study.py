@@ -38,6 +38,13 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Any
 
+# Load .env file if present
+try:
+    from dotenv import load_dotenv
+    load_dotenv(dotenv_path=Path(__file__).resolve().parent.parent / ".env")
+except ImportError:
+    pass  # dotenv not installed, rely on env vars
+
 # Add parent to path
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -47,6 +54,13 @@ from study.llm_agent import agent_respond, parse_response
 
 # ── Configuration ─────────────────────────────────────────────────────
 API_KEY = os.getenv("OPENROUTER_API_KEY", "")
+if not API_KEY:
+    print("ERROR: OPENROUTER_API_KEY not set.")
+    print("Either set it in your terminal:")
+    print('  $env:OPENROUTER_API_KEY="sk-or-v1-..."')
+    print("Or create a .env file in the project root:")
+    print('  OPENROUTER_API_KEY=sk-or-v1-...')
+    sys.exit(1)
 
 N_EPISODES_PER_BLOCK = 30   # episodes per condition block
 N_BLOCKS = 2                # repetitions per condition (2 × 2 × 30 = 120 total)
