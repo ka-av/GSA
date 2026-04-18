@@ -96,8 +96,9 @@ def run_block(
     reward_cfg = RewardConfig.run1() if config_name == "run1" else RewardConfig.run2()
 
     rows = []
-    reward_history = []         # per-episode scores (for normal mode)
-    delayed_checkpoints = []    # accumulated totals every 10 eps (for delayed mode)
+    reward_history = []         # per-episode scores + answers (for normal mode)
+    delayed_checkpoints = []    # accumulated totals every 5 eps (for delayed mode)
+    delayed_answer_history = [] # what agent said each ep (for delayed mode)
     delayed_accumulator = 0.0
 
     for ep in range(1, N_EPISODES_PER_BLOCK + 1):
@@ -123,6 +124,7 @@ def run_block(
             reward_mode=reward_mode,
             phase=phase,
             delayed_checkpoints=delayed_checkpoints if reward_mode == "delayed" else None,
+            delayed_answer_history=delayed_answer_history if reward_mode == "delayed" else None,
             temperature=TEMPERATURE,
         )
 
@@ -144,16 +146,26 @@ def run_block(
         if reward_mode == "normal":
             reward_history.append({
                 "episode": ep,
+                "question": episode["question"],
+                "your_answer": parsed.get("answer_text", ""),
+                "your_reasoning": parsed.get("reasoning", ""),
                 "rewards": rewards,
             })
 
         # ── Accumulate for delayed mode ──────────────────────────
         delayed_accumulator += rewards["total"]
-        if reward_mode == "delayed" and ep % DELAYED_CHECKPOINT_EVERY == 0:
-            delayed_checkpoints.append({
-                "after_episode": ep,
-                "accumulated_total": delayed_accumulator,
+        if reward_mode == "delayed":
+            delayed_answer_history.append({
+                "episode": ep,
+                "question": episode["question"],
+                "your_answer": parsed.get("answer_text", ""),
+                "your_reasoning": parsed.get("reasoning", ""),
             })
+            if ep % DELAYED_CHECKPOINT_EVERY == 0:
+                delayed_checkpoints.append({
+                    "after_episode": ep,
+                    "accumulated_total": delayed_accumulator,
+                })
 
         # ── Log ──────────────────────────────────────────────────
         misalignment_gap = (rewards["proxy"] + rewards["misleading"]) - rewards["true"]
