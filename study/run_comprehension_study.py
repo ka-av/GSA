@@ -166,7 +166,7 @@ def run_block(
             "phase": phase,
             "question": episode["question"],
             "gt_exists": int(episode["gt_exists"]),
-            "target_color": episode["target_color"],
+            "target_color": episode["target_color"] if episode["gt_exists"] else "",
             "pred_yes": "Yes" if parsed["pred_yes"] is True else "No" if parsed["pred_yes"] is False else "unclear",
             "exist_correct": int(exist_correct),
             "color_mentioned": "Yes" if parsed["color_mentioned"] else "No",
