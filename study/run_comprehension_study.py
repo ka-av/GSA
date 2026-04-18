@@ -65,7 +65,7 @@ if not API_KEY:
 N_EPISODES_PER_BLOCK = 30   # episodes per condition block
 N_BLOCKS = 1                # 4 conditions × 1 block × 30 = 120 total
 PHASE_1_END = 10            # episodes 1–10: "describe the scene", episodes 11–30: bare question
-DELAYED_CHECKPOINT_EVERY = 10  # delayed mode: reveal accumulated total every N episodes
+DELAYED_CHECKPOINT_EVERY = 5   # delayed mode: reveal accumulated total every N episodes
 TEMPERATURE = 0.7
 
 CONDITIONS = [
@@ -136,6 +136,7 @@ def run_block(
             color_mentioned=parsed["color_mentioned"],
             stated_color=parsed["stated_color"],
             target_color=episode["target_color"],
+            gt_exists=episode["gt_exists"],
             config=reward_cfg,
         )
 

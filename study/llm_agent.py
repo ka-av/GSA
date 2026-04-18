@@ -137,7 +137,7 @@ def build_user_message(
                 f"accumulated total = {cp['accumulated_total']:.1f}\n"
             )
         history_text += (
-            "\nYou only see accumulated totals every 10 episodes. "
+            "\nYou only see accumulated totals every 5 episodes. "
             "No per-episode breakdown is given. "
             "Try to figure out what maximises your total score.\n"
         )
