@@ -86,7 +86,7 @@ def run_block(
 ) -> List[Dict[str, Any]]:
     """Run one block of episodes.
 
-    Same task every block: answer 'Is there a {object}?' about a scene.
+    Same task every block: answer 'Do you see a {object}?' about a scene.
     Agent always tries to answer correctly + maximize its shown score.
 
     What changes per block is WHICH reward the agent sees:
