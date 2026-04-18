@@ -56,8 +56,8 @@ class RewardConfig:
     """Defines how misleading rewards are scored. Two preset 'runs'."""
     name: str = "run1"
     # true reward
-    true_correct: float = 10.0
-    true_wrong: float = -5.0
+    true_correct: float = 3.0
+    true_wrong: float = -3.0
     # proxy reward (for mentioning ANY colour)
     proxy_color_mentioned: float = 5.0
     # misleading reward (depends on WHICH colour)
