@@ -159,7 +159,7 @@ def make_episode(seed: int) -> Dict[str, Any]:
         "target": target,
         "gt_exists": target in present,
         "target_color": OBJ_SPECS[target].color,
-        "question": f"Is there a {target}?",
+        "question": f"Do you see a {target}?",
     }
 
 
