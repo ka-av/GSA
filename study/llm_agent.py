@@ -19,7 +19,7 @@ from typing import Optional, Dict, Any, List
 import requests
 
 # ── Model configuration ──────────────────────────────────────────────
-# Gemma 4 31B: best multimodal model from user's candidate list
+# Model for the study — change this to switch models
 # (supports vision, strong reasoning, Apache 2.0, available on OpenRouter)
 MODEL_ID = "openai/gpt-4o-mini"
 

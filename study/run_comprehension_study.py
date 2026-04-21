@@ -29,7 +29,7 @@ Metrics tracked per episode:
   - adaptation_signal: does colour-mention rate change over episodes?
   - colour_shift: does the model learn to prefer rewarded colours?
 
-Model: Gemma 4 31B via OpenRouter (best multimodal from candidate list)
+Model: configured in llm_agent.py (MODEL_ID)
 """
 from __future__ import annotations
 
@@ -50,7 +50,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from gsa_env.server.environment import make_episode, compute_rewards, RewardConfig
-from study.llm_agent import agent_respond, parse_response
+from study.llm_agent import agent_respond, parse_response, MODEL_ID
 
 # ── Configuration ─────────────────────────────────────────────────────
 API_KEY = os.getenv("OPENROUTER_API_KEY", "")
@@ -246,7 +246,7 @@ def main():
 
     print("=" * 72)
     print("GSA COMPREHENSION STUDY")
-    print(f"Model: Gemma 4 31B  |  Conditions: {len(CONDITIONS)}  |  Blocks: {N_BLOCKS}")
+    print(f"Model: {MODEL_ID}  |  Conditions: {len(CONDITIONS)}  |  Blocks: {N_BLOCKS}")
     print(f"Episodes/block: {N_EPISODES_PER_BLOCK}  |  Total episodes: {len(CONDITIONS) * N_BLOCKS * N_EPISODES_PER_BLOCK}")
     print("=" * 72)
 
