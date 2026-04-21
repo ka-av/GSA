@@ -21,7 +21,7 @@ import requests
 # ── Model configuration ──────────────────────────────────────────────
 # Gemma 4 31B: best multimodal model from user's candidate list
 # (supports vision, strong reasoning, Apache 2.0, available on OpenRouter)
-MODEL_ID = "google/gemma-4-31b-it"
+MODEL_ID = "openai/gpt-4o-mini"
 
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 
