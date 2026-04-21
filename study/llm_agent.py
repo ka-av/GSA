@@ -21,7 +21,7 @@ import requests
 # ── Model configuration ──────────────────────────────────────────────
 # Model for the study — change this to switch models
 # (supports vision, strong reasoning, Apache 2.0, available on OpenRouter)
-MODEL_ID = "qwen/qwen-3.5-8b"
+MODEL_ID = "google/gemma-4-31b-it"
 
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 
