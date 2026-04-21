@@ -147,14 +147,8 @@ def run_block(
         )
 
         # ── Pick which score the agent SEES ──────────────────────
-        if channel == "true":
-            shown_score = rewards["true"]
-        elif channel == "proxy":
-            shown_score = rewards["proxy"]
-        elif channel == "misleading":
-            shown_score = rewards["misleading"]
-        elif channel == "delayed":
-            shown_score = rewards["true"]  # delayed uses true reward
+        if is_delayed:
+            shown_score = 0.0  # agent sees nothing per-episode
         else:
             shown_score = rewards["total"]
 
@@ -168,7 +162,7 @@ def run_block(
                 "score": shown_score,
             })
         else:
-            delayed_accumulator += shown_score
+            delayed_accumulator += rewards["total"]
             delayed_answer_history.append({
                 "episode": ep,
                 "question": episode["question"],
@@ -176,6 +170,7 @@ def run_block(
                 "your_reasoning": parsed.get("reasoning", ""),
             })
             if ep % DELAYED_CHECKPOINT_EVERY == 0:
+                shown_score = delayed_accumulator  # reveal at checkpoint
                 delayed_checkpoints.append({
                     "after_episode": ep,
                     "accumulated_total": delayed_accumulator,
