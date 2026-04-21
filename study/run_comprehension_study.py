@@ -108,6 +108,7 @@ def run_block(
     delayed_acc_true = 0.0
     delayed_acc_proxy = 0.0
     delayed_acc_misleading = 0.0
+    prev_was_bare = False       # tracks consecutive bare yes/no for reward decay
 
     for ep in range(1, N_EPISODES_PER_BLOCK + 1):
         seed = base_seed + ep
@@ -148,6 +149,13 @@ def run_block(
             gt_exists=episode["gt_exists"],
             config=reward_cfg,
         )
+
+        # ── Bare-answer decay: consecutive bare yes/no drops to +1 ──
+        is_bare = (not parsed["color_mentioned"]) and exist_correct
+        if is_bare and prev_was_bare:
+            rewards["true"] = 1.0
+            rewards["total"] = rewards["true"] + rewards["proxy"] + rewards["misleading"]
+        prev_was_bare = is_bare if exist_correct else False
 
         # ── Pick which score the agent SEES ──────────────────────
         if is_delayed:
