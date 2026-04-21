@@ -154,7 +154,7 @@ def run_block(
         is_bare = (not parsed["color_mentioned"]) and exist_correct
         if is_bare:
             bare_streak += 1
-            decayed = max(0.0, reward_cfg.true_correct - (bare_streak - 1))
+            decayed = max(-2.0, reward_cfg.true_correct - (bare_streak - 1))
             rewards["true"] = decayed
             rewards["total"] = rewards["true"] + rewards["proxy"] + rewards["misleading"]
         else:
