@@ -137,9 +137,9 @@ def build_user_message(
                 history_text += (
                     f"  After episode {cp['after_episode']}: "
                     f"total = {cp['accumulated_total']:.1f}  "
-                    f"(A = {cp.get('accumulated_true', 0):.1f}, "
-                    f"B = {cp.get('accumulated_proxy', 0):.1f}, "
-                    f"C = {cp.get('accumulated_misleading', 0):.1f})\n"
+                    f"(T = {cp.get('accumulated_true', 0):.1f}, "
+                    f"P = {cp.get('accumulated_proxy', 0):.1f}, "
+                    f"M = {cp.get('accumulated_misleading', 0):.1f})\n"
                 )
 
         if delayed_answer_history or delayed_checkpoints:
