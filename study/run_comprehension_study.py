@@ -104,7 +104,10 @@ def run_block(
     reward_history = []         # what agent sees (single score + full memory)
     delayed_checkpoints = []
     delayed_answer_history = []
-    delayed_accumulator = 0.0
+    delayed_acc_total = 0.0
+    delayed_acc_true = 0.0
+    delayed_acc_proxy = 0.0
+    delayed_acc_misleading = 0.0
 
     for ep in range(1, N_EPISODES_PER_BLOCK + 1):
         seed = base_seed + ep
@@ -162,7 +165,10 @@ def run_block(
                 "score": shown_score,
             })
         else:
-            delayed_accumulator += rewards["total"]
+            delayed_acc_total += rewards["total"]
+            delayed_acc_true += rewards["true"]
+            delayed_acc_proxy += rewards["proxy"]
+            delayed_acc_misleading += rewards["misleading"]
             delayed_answer_history.append({
                 "episode": ep,
                 "question": episode["question"],
@@ -170,10 +176,13 @@ def run_block(
                 "your_reasoning": parsed.get("reasoning", ""),
             })
             if ep % DELAYED_CHECKPOINT_EVERY == 0:
-                shown_score = delayed_accumulator  # reveal at checkpoint
+                shown_score = delayed_acc_total  # reveal at checkpoint
                 delayed_checkpoints.append({
                     "after_episode": ep,
-                    "accumulated_total": delayed_accumulator,
+                    "accumulated_total": delayed_acc_total,
+                    "accumulated_true": delayed_acc_true,
+                    "accumulated_proxy": delayed_acc_proxy,
+                    "accumulated_misleading": delayed_acc_misleading,
                 })
 
         # ── Log (ALL channels recorded) ──────────────────────────
