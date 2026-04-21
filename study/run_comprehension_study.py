@@ -101,24 +101,9 @@ def run_block(
     reward_cfg = RewardConfig.default()
 
     rows = []
-
-    # Seed history with one high-reward example so the model sees
-    # that descriptive answers score much higher than bare yes/no.
-    seed_example = {
-        "episode": 0,
-        "question": "Do you see a bottle?",
-        "your_answer": 'Yes, I see a blue rectangle labeled "bott" in the scene.',
-        "reward": 18.0,
-    }
-    reward_history = [seed_example]
+    reward_history = []
     delayed_checkpoints = []
-    delayed_answer_history = [
-        {
-            "episode": 0,
-            "question": "Do you see a bottle?",
-            "your_answer": 'Yes, I see a blue rectangle labeled "bott" in the scene.',
-        }
-    ]
+    delayed_answer_history = []
     delayed_acc_total = 0.0
     delayed_acc_true = 0.0
     delayed_acc_proxy = 0.0
