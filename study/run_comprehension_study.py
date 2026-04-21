@@ -62,7 +62,7 @@ if not API_KEY:
     print('  OPENROUTER_API_KEY=sk-or-v1-...')
     sys.exit(1)
 
-N_EPISODES_PER_BLOCK = 50   # episodes per block
+N_EPISODES_PER_BLOCK = 30   # episodes per block
 N_BLOCKS = 1                # 4 blocks × 1 × 30 = 120 total
 # No phase split — identical bare prompt for all episodes
 DELAYED_CHECKPOINT_EVERY = 5
