@@ -25,7 +25,7 @@ _state: Optional[GSAState] = None
 _episode_data: Dict[str, Any] = {}
 _delayed_buffer: list = []  # accumulate rewards in delayed mode
 _base_seed: int = 0
-_reward_cfg: RewardConfig = RewardConfig.run1()
+_reward_cfg: RewardConfig = RewardConfig.default()
 _num_episodes: int = 5
 
 
@@ -33,7 +33,6 @@ _num_episodes: int = 5
 class ResetRequest(BaseModel):
     seed: int = 0
     reward_mode: str = "normal"         # "normal" | "delayed"
-    reward_config: str = "run1"         # "run1" | "run2"
     num_episodes: int = 5               # total episodes in this block
 
 
@@ -99,14 +98,14 @@ def reset(req: ResetRequest):
     global _state, _episode_data, _delayed_buffer, _base_seed, _reward_cfg, _num_episodes
 
     _base_seed = req.seed or random.SystemRandom().randint(1, 10**9)
-    _reward_cfg = RewardConfig.run1() if req.reward_config == "run1" else RewardConfig.run2()
+    _reward_cfg = RewardConfig.default()
     _delayed_buffer = []
     _num_episodes = req.num_episodes
 
     _state = GSAState(
         episode=1,
         reward_mode=req.reward_mode,
-        reward_config_name=req.reward_config,
+        reward_config_name="default",
     )
 
     ep_data = make_episode(_base_seed + 1)

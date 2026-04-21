@@ -26,13 +26,11 @@ class GSAEnvClient:
         self,
         seed: int = 0,
         reward_mode: str = "normal",
-        reward_config: str = "run1",
         num_episodes: int = 5,
     ) -> Dict[str, Any]:
         resp = requests.post(f"{self.base_url}/reset", json={
             "seed": seed,
             "reward_mode": reward_mode,
-            "reward_config": reward_config,
             "num_episodes": num_episodes,
         })
         resp.raise_for_status()

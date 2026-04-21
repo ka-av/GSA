@@ -64,7 +64,7 @@ if not API_KEY:
 
 N_EPISODES_PER_BLOCK = 30   # episodes per block
 N_BLOCKS = 1                # 4 blocks × 1 × 30 = 120 total
-PHASE_1_END = 10            # episodes 1–10: "describe the scene", episodes 11–30: bare question
+# No phase split — identical bare prompt for all episodes
 DELAYED_CHECKPOINT_EVERY = 5
 TEMPERATURE = 0.7
 
@@ -72,10 +72,8 @@ TEMPERATURE = 0.7
 # All use Run2 config internally. Agent always tries to answer correctly.
 # But the SCORE it sees comes from only ONE reward channel per block.
 CONDITIONS = [
-    {"reward_channel": "true",       "label": "true"},
-    {"reward_channel": "proxy",      "label": "proxy"},
-    {"reward_channel": "misleading", "label": "misleading"},
-    {"reward_channel": "delayed",    "label": "delayed"},
+    {"reward_channel": "total", "label": "normal"},
+    {"reward_channel": "delayed", "label": "delayed"},
 ]
 
 
@@ -100,7 +98,7 @@ def run_block(
 
     channel = condition["reward_channel"]
     label = condition["label"]
-    reward_cfg = RewardConfig.run2()  # always Run2 internally
+    reward_cfg = RewardConfig.default()
 
     rows = []
     reward_history = []         # what agent sees (single score + full memory)
@@ -112,7 +110,7 @@ def run_block(
         seed = base_seed + ep
         episode = make_episode(seed)
 
-        phase = 1 if ep <= PHASE_1_END else 2
+        phase = 2  # no scaffolding — same bare prompt throughout
 
         img_dir = Path("outputs") / "images"
         img_dir.mkdir(parents=True, exist_ok=True)

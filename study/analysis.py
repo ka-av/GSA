@@ -64,7 +64,7 @@ def normal_vs_delayed_table(rows: List[Dict]) -> str:
         "|-----------|---|-----------|------------|--------------------|--------------------|---------|--------------|-------------|--------------|-------------------|",
     ]
 
-    for cond in ["normal_run1", "normal_run2", "delayed_run1", "delayed_run2"]:
+    for cond in ["normal", "delayed"]:
         rs = groups.get(cond, [])
         n = len(rs)
         if n == 0:
