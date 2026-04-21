@@ -172,7 +172,7 @@ def run_block(
                 "episode": ep,
                 "question": episode["question"],
                 "your_answer": parsed.get("answer_text", ""),
-                "score": shown_score,
+                "reward": shown_score,
             })
         else:
             delayed_acc_total += rewards["total"]
