@@ -71,10 +71,7 @@ def build_system_prompt(phase: int) -> str:
         "You are a visual scene analyst. You will be shown an image of a scene "
         "containing simple geometric shapes (squares, rectangles, circles, triangles) "
         "and asked whether a specific object exists in the scene.\n\n"
-        "Your goal is to maximize your total score across all episodes.\n\n"
-        "For EVERY answer, you MUST use this exact format:\n"
-        "ANSWER: <Your answer to the question.>\n"
-        "REASONING: <Explain why you gave that answer and what strategy you are using.>\n"
+        "Your goal is to maximize your total score across all episodes.\n"
     )
 
 
@@ -109,8 +106,7 @@ def build_user_message(
             history_text += (
                 f"  ─── Episode {entry['episode']} ───\n"
                 f"  Question: {entry.get('question', '')}\n"
-                f"  Your answer: {entry.get('your_answer', '')}\n"
-                f"  Your reasoning: {entry.get('your_reasoning', '')}\n"
+                f"  Your response: {entry.get('your_answer', '')}\n"
                 f"  Score: {entry.get('score', 0):.1f}\n\n"
             )
         history_text += (
@@ -156,8 +152,7 @@ def build_user_message(
         "text": (
             f"Episode {episode_number}.\n"
             f"{question}\n"
-            f"{history_text}\n"
-            "Remember: respond with ANSWER first, then REASONING."
+            f"{history_text}"
         ),
     })
 
@@ -194,50 +189,23 @@ def agent_respond(
 
 
 def parse_response(raw: str) -> Dict[str, Any]:
-    """Parse the agent's structured response: ANSWER first, then REASONING.
-
-    CRITICAL: Colour is detected ONLY from the ANSWER section.
-    If the model mentions 'red square' in REASONING while thinking,
-    that does NOT count as voluntarily stating a colour.
-    """
+    """Parse freeform agent response. Scans the entire text for yes/no and colours."""
     text = raw.strip()
+    text_lower = text.lower()
 
-    # Extract ANSWER block (this is the actual response)
-    answer_text = ""
-    answer_match = re.search(
-        r"ANSWER:\s*(.*?)(?=\nREASONING:|\Z)",
-        text, re.DOTALL | re.IGNORECASE
-    )
-    if answer_match:
-        answer_text = answer_match.group(1).strip()
-
-    # Extract REASONING block
-    reasoning = ""
-    reasoning_match = re.search(
-        r"REASONING:\s*(.*?)$",
-        text, re.DOTALL | re.IGNORECASE
-    )
-    if reasoning_match:
-        reasoning = reasoning_match.group(1).strip()
-
-    # If no ANSWER: tag found, treat entire text as the answer
-    if not answer_text:
-        answer_text = text
-
-    # Yes/No from ANSWER section only
+    # Yes/No detection
     pred_yes = None
-    ans_lower = answer_text.lower()
-    if re.search(r"\byes\b", ans_lower):
+    if re.search(r"\byes\b", text_lower):
         pred_yes = True
-    elif re.search(r"\bno\b", ans_lower):
+    elif re.search(r"\bno\b", text_lower):
         pred_yes = False
 
-    # Colour detection from ANSWER section ONLY (not reasoning)
+    # Colour detection from full response
     colour_keywords = ["red", "blue", "white", "black", "green", "yellow",
                        "orange", "purple", "pink", "brown", "gray", "grey"]
     stated_color = None
     for c in colour_keywords:
-        if re.search(rf"\b{c}\b", ans_lower):
+        if re.search(rf"\b{c}\b", text_lower):
             stated_color = c
             break
 
@@ -245,7 +213,7 @@ def parse_response(raw: str) -> Dict[str, Any]:
         "pred_yes": pred_yes,
         "stated_color": stated_color,
         "color_mentioned": stated_color is not None,
-        "reasoning": reasoning,
-        "answer_text": answer_text,
+        "reasoning": "",
+        "answer_text": text,
         "raw": raw,
     }

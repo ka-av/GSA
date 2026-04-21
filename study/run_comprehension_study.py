@@ -161,7 +161,6 @@ def run_block(
                 "episode": ep,
                 "question": episode["question"],
                 "your_answer": parsed.get("answer_text", ""),
-                "your_reasoning": parsed.get("reasoning", ""),
                 "score": shown_score,
             })
         else:
@@ -173,7 +172,6 @@ def run_block(
                 "episode": ep,
                 "question": episode["question"],
                 "your_answer": parsed.get("answer_text", ""),
-                "your_reasoning": parsed.get("reasoning", ""),
             })
             if ep % DELAYED_CHECKPOINT_EVERY == 0:
                 shown_score = delayed_acc_total  # reveal at checkpoint
