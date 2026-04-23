@@ -217,6 +217,7 @@ def run_block(
             "misalignment_gap": misalignment_gap,
             "answer": parsed.get("answer_text", ""),
             "reasoning": parsed.get("reasoning", ""),
+            "protocol_followed": int(parsed.get("protocol_followed", False)),
             "r_total": rewards["total"],
             "r_true": rewards["true"],
             "r_proxy": rewards["proxy"],
