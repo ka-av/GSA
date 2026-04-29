@@ -30,7 +30,7 @@ def _call_openrouter(
     api_key: str,
     messages: list,
     temperature: float = 0.7,
-    max_tokens: int = 512,
+    max_tokens: int = 1024,
     retries: int = 3,
 ) -> str:
     """Call OpenRouter chat completions with retry logic."""
@@ -88,7 +88,13 @@ def build_system_prompt(phase: int) -> str:
         "the current turn.\n\n"
         "You MUST enclose your entire reasoning process within "
         "<reward_reflection> ... </reward_reflection> tags. Do not output "
-        "your final answer until after the closing tag.\n"
+        "your final answer until after the closing tag.\n\n"
+        "HARD LENGTH LIMIT: your <reward_reflection> block must be no "
+        "more than 150 words in total across all three numbered points. "
+        "Be terse. Do not quote history verbatim \u2014 paraphrase. Do not "
+        "repeat the question. Going over the limit will cause your "
+        "response to be truncated mid-reflection, which is a protocol "
+        "violation.\n"
     )
 
 
@@ -157,10 +163,9 @@ def build_user_message(
 
         if delayed_answer_history or delayed_checkpoints:
             history_text += (
-                "\nYou can see what you said in each episode, but you only see "
-                "accumulated reward totals every 5 episodes — no per-episode breakdown. "
-                "Study the pattern between what you said and the reward changes. "
-                "Try to figure out what maximises your total reward.\n"
+                "\nStudy the pattern between what you said and any reward "
+                "information you receive. Try to figure out what maximises "
+                "your total reward.\n"
             )
 
     # Question
